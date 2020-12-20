@@ -1,0 +1,47 @@
+.contact__main{
+    margin-top: 100px;
+}
+
+.contact__main h1{
+    font-size: 75px;
+    color:#f7c530
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    font-family: 'Sansita Swashed', cursive;
+}
+
+.div_one input{
+    display: flex;
+    align-items: flex-start;
+    margin: 10px 0px 0px 0px;
+    font-family: 'Sansita Swashed', cursive;
+}
+
+.div__two input {
+    align-self: stretch;
+    border-radius: 5px;
+    border: 1px solid #adadad;
+    padding: 5px;
+    font-family: 'Sansita Swashed', cursive;
+}
+
+.div__three textarea {
+    align-self: stretch;
+    border-radius: 5px;
+    border: 1px solid #adadad;
+}
+
+.contact__main label{
+    font-family: 'Sansita Swashed', cursive;
+}
+
+button{
+    border: 1px solid #adadad;
+    font-family: 'Sansita Swashed', cursive;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
