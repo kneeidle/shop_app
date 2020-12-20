@@ -1,15 +1,14 @@
 import React from 'react';
 import './Nav.css';
-import { Link } from 'react-router-dom'
-import logo from '../images/logo1.png'
-import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import logo from '../images/logo1.png';
 
 function Nav(props) {
   const navStyle = {
-  }
+  };
 
   const { posts } = props;
-
 
   return (
     <nav className="nav">
@@ -24,19 +23,16 @@ function Nav(props) {
           <li><Link className="nav-item" active-color="green" style={navStyle} to="/contact">Contact</Link></li>
           <li><Link className="nav-item" active-color="blue" style={navStyle} to="/product/upload">Upload</Link></li>
           <li><Link className="nav-item" active-color="blue" style={navStyle} to="/login">Login</Link></li>
-          <li><Link className="nav-item" active-color="blue" style={navStyle} to="/cart">{posts}<ion-icon name="cart-outline"></ion-icon></Link></li>         
-          <span class="nav-indicator"></span>
+          <li><Link className="nav-item" active-color="blue" style={navStyle} to="/cart">{posts}<ion-icon name="cart-outline" /></Link></li>
+          <span className="nav-indicator" />
         </ul>
       </div>
     </nav>
   );
-};
-
-const mapStateToProps = (state) => {
-  return {
-    posts: state.posts
-  }
-
 }
 
-export default connect(mapStateToProps)(Nav)
+const mapStateToProps = (state) => ({
+  posts: state.posts,
+});
+
+export default connect(mapStateToProps)(Nav);

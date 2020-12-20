@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './ItemDetail.css'
+import './ItemDetail.css';
 import ImageGallery from 'react-image-gallery';
-import { connect } from 'react-redux'
-import { deletePost } from '../actions/postActions'
-
-
+import { connect } from 'react-redux';
+import { deletePost } from '../actions/postActions';
 
 function ItemDetail(props) {
-
   useEffect(() => {
     fetchItem();
     console.log(props.match);
-    console.log(props)
-    props.deletePost(parseInt(localStorage.getItem('cartNumbers')) ? parseInt(localStorage.getItem('cartNumbers')) : 0)
+    console.log(props);
+    props.deletePost(parseInt(localStorage.getItem('cartNumbers')) ? parseInt(localStorage.getItem('cartNumbers')) : 0);
   }, []);
 
-
-  const [item, setItem] = useState({ title: "title" });
+  const [item, setItem] = useState({ title: 'title' });
 
   const fetchItem = async () => {
     const data = await axios.get(`http://127.0.0.1:4000/product/${props.match.params.id}`);
@@ -41,70 +37,56 @@ function ItemDetail(props) {
   ];
 
   const cartNumbers = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let productNumbers = localStorage.getItem('cartNumbers');
 
     productNumbers = parseInt(productNumbers);
 
     if (productNumbers) {
       localStorage.setItem('cartNumbers', productNumbers + 1);
-      props.deletePost(productNumbers + 1)
-
+      props.deletePost(productNumbers + 1);
     } else {
       localStorage.setItem('cartNumbers', 1);
-      props.deletePost(1)
+      props.deletePost(1);
     }
     //----------------------------------------------------------
     let cartItems = localStorage.getItem('productsInCart');
     cartItems = JSON.parse(cartItems);
     item.inCart = 0;
     if (cartItems != null) {
-
       if (cartItems[item.title] == undefined) {
         item.inCart = 1;
         cartItems = {
           ...cartItems,
-          [item.title]: item
-        }
-      }else{
-
+          [item.title]: item,
+        };
+      } else {
         cartItems[item.title].inCart += 1;
       }
     } else {
       item.inCart = 1;
       cartItems = {
-        [item.title]: item
-      }
-      console.log(cartItems)
+        [item.title]: item,
+      };
+      console.log(cartItems);
     }
-    
-    localStorage.setItem("productsInCart", JSON.stringify(cartItems));
+
+    localStorage.setItem('productsInCart', JSON.stringify(cartItems));
     //--------------------------------------------------------------
 
     let cartCost = localStorage.getItem('totalCost');
 
     if (cartCost != null) {
       cartCost = parseFloat(cartCost);
-      localStorage.setItem("totalCost", cartCost + item.price);
+      localStorage.setItem('totalCost', cartCost + item.price);
     } else {
-      localStorage.setItem("totalCost", item.price);
+      localStorage.setItem('totalCost', item.price);
     }
-
-
-
-
-  }
-
-
-
-
-
+  };
 
   return (
 
-
     <>
-
 
       <div className="main">
         <div className="img">
@@ -112,11 +94,11 @@ function ItemDetail(props) {
         </div>
         <div className="details">
           <div>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
+            <span className="fa fa-star checked" />
+            <span className="fa fa-star checked" />
+            <span className="fa fa-star checked" />
+            <span className="fa fa-star" />
+            <span className="fa fa-star" />
           </div>
           <h1>{item.title}</h1>
           <h2>{item.desc}</h2>
@@ -129,11 +111,8 @@ function ItemDetail(props) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deletePost: (id) => { dispatch(deletePost(id)) }
-  }
+const mapDispatchToProps = (dispatch) => ({
+  deletePost: (id) => { dispatch(deletePost(id)); },
+});
 
-}
-
-export default connect(null, mapDispatchToProps)(ItemDetail)
+export default connect(null, mapDispatchToProps)(ItemDetail);

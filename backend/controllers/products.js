@@ -1,6 +1,6 @@
 const Post = require('../models/Post');
 
-exports.uploadProducts = async (req, res) => {//
+exports.uploadProducts = async (req, res) => { //
   const product = new Post({
     title: req.body.title,
     desc: req.body.desc,
@@ -14,14 +14,13 @@ exports.uploadProducts = async (req, res) => {//
   }
 };
 
-exports.getAllProducts = async (req, res) => {//
+exports.getAllProducts = async (req, res) => { //
   try {
     const posts = await Post.find();
     res.json(posts);
   } catch (err) {
     res.json({ message: err });
   }
-
 };
 
 exports.getSingleProduct = async (req, res) => {
@@ -33,7 +32,7 @@ exports.getSingleProduct = async (req, res) => {
   }
 };
 
-exports.deletePost = async (req, res) => {//
+exports.deletePost = async (req, res) => { //
   try {
     const removedPost = await Post.remove({ _id: req.params.postId });
     res.json(removedPost);

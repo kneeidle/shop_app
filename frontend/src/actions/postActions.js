@@ -1,6 +1,4 @@
-export const deletePost = (id) => {
-    return{
-        type: 'DELETE_POST',
-        id
-    }
-}
+export const deletePost = (id) => ({
+  type: 'DELETE_POST',
+  id,
+});

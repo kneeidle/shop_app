@@ -15,6 +15,7 @@ export default class Contact extends Component {
     }
   }
 
+
   handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;

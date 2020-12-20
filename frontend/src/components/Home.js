@@ -2,23 +2,18 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function Home() {
-
-  const [Products, setProducts] = useState([])
+  const [Products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:4000/product`)
-      .then(response => {
+    axios.get('http://127.0.0.1:4000/product')
+      .then((response) => {
+        setProducts(response.data);
+      });
+  }, []);
 
-        setProducts(response.data)
+  const renderCards = Products.map((product) => {
 
-      })
-  }, [])
-
-  const renderCards = Products.map((product, index) => {
-
-    
-  })
-
+  });
 
   return (
     <div className="home-main">
@@ -27,18 +22,16 @@ function Home() {
           <h2> Let's Eat Something</h2>
         </div>
 
-
-        {Products.length === 0 ?
+        {Products.length === 0 ? (
           <div style={{ display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'center' }}>
             <h2>No post yet...</h2>
-          </div> :
-          <div>
-
-            {renderCards}
-
           </div>
-
-        }
+        )
+          : (
+            <div>
+              {renderCards}
+            </div>
+          )}
         <br /><br />
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <button>Load More</button>
