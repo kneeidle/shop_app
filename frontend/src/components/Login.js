@@ -1,73 +1,91 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import Axios from "axios";
+import "./Login.css"
+import { connect } from 'react-redux';
+import { Authorize } from '../actions/postActions';
 
-export default function Login() {
-  const [RegisterUsername, setRegisterUsername] = useState('');
-  const [RegisterPassword, setRegisterPassword] = useState('');
-  const [LoginUsername, setLoginUsername] = useState('');
-  const [LoginPassword, setLoginPassword] = useState('');
-  const [Data, setData] = useState(null);
+function Login(props) {
+  const [registerUsername, setRegisterUsername] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   const register = () => {
-    axios({
-      method: 'POST',
+    Axios({
+      method: "POST",
       data: {
-        username: RegisterUsername,
-        password: RegisterPassword,
+        username: registerUsername,
+        password: registerPassword,
       },
       withCredentials: true,
-      url: 'http://localhost:4000/register',
+      url: "http://localhost:4000/register",
     }).then((res) => console.log(res));
+    setRegisterUsername("");
+    setRegisterPassword("");
   };
+  
   const login = () => {
-    axios({
-      method: 'POST',
+    Axios({
+      method: "POST",
       data: {
-        username: LoginUsername,
-        password: LoginPassword,
+        username: loginUsername,
+        password: loginPassword,
       },
       withCredentials: true,
-      url: 'http://localhost:4000/login',
-    }).then((res) => console.log(res));
-  };
-  const getUser = () => {
-    axios({
-      method: 'GET',
-      withCredentials: true,
-      url: 'http://localhost:4000/user',
+      url: "http://localhost:4000/login",
     }).then((res) => {
-      setData(res.data);
-      console.log(res.data);
+      localStorage.setItem("Login", res.data);
+      props.Authorize(JSON.parse(localStorage.getItem("Login")))
     });
+    setLoginUsername("");
+    setLoginPassword("");
   };
 
   return (
-    <div style={{ marginTop: '100px' }}>
-      <div>
+    <div className="login-container">
+      <div className="login-row">
         <h1>Register</h1>
-        <input placeholder="username" onChange={(e) => setRegisterUsername(e.target.value)} />
-        <input placeholder="password" onChange={(e) => setRegisterPassword(e.target.value)} />
+        <input
+          placeholder="username"
+          value={registerUsername}
+          onChange={(e) => setRegisterUsername(e.target.value)}
+        />
+        <input
+          placeholder="password"
+          value={registerPassword}
+          onChange={(e) => setRegisterPassword(e.target.value)}
+          onKeyDown={(event) => {if(event.keyCode === 13){
+            register()
+          }}}
+        />
         <button onClick={register}>Submit</button>
       </div>
-      <div>
-        <h1>Login</h1>
-        <input placeholder="username" onChange={(e) => setLoginUsername(e.target.value)} />
-        <input placeholder="password" onChange={(e) => setLoginPassword(e.target.value)} />
-        <button onClick={login}>Submit</button>
-      </div>
-      <div>
-        <h1>User</h1>
-        <button onClick={getUser}>Submit</button>
-        {
-            Data ? (
-              <h1>
-                Welcome Back
-                {Data.username}
-              </h1>
-            ) : null
-        }
 
+      <div className="login-row">
+        <h1>Login</h1>
+        <input
+          placeholder="username"
+          value={loginUsername}
+          onChange={(e) => setLoginUsername(e.target.value)}
+          
+        />
+        <input
+          placeholder="password"
+          value={loginPassword}
+          onChange={(e) => setLoginPassword(e.target.value)}
+          onKeyDown={(event) => {if(event.keyCode === 13){
+            login()
+          }}}
+          
+        />
+        <button onClick={login}>Submit</button>
       </div>
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  Authorize: (auth) => { dispatch(Authorize(auth)); },
+});
+
+export default connect(null, mapDispatchToProps)(Login);

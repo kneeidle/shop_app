@@ -2,6 +2,7 @@ const Post = require('../models/Post');
 
 exports.uploadProducts = async (req, res) => { //
   const product = new Post({
+    image: req.body.image,
     title: req.body.title,
     desc: req.body.desc,
     price: req.body.price,

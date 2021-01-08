@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './UploadProductPage.css';
 import axios from 'axios';
 
 function UploadProductPage() {
+
   const [TitleValue, setTitleValue] = useState('');
   const [DescriptionValue, setDescriptionValue] = useState('');
   const [PriceValue, setPriceValue] = useState(0);
+  const [baseImage, setBaseImage] = useState(null);
+  const [baseImage1, setBaseImage1] = useState([]);
+
+  useEffect(() => {
+    if(baseImage != null && baseImage1.length < 3){
+    setBaseImage1([...baseImage1, baseImage])
+    console.log(baseImage1)
+    }
+  }, [baseImage]);
+
 
   const onTitleChange = (event) => {
     setTitleValue(event.target.value);
@@ -22,6 +33,7 @@ function UploadProductPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const product = {
+      image: baseImage,
       title: TitleValue,
       desc: DescriptionValue,
       price: PriceValue,
@@ -32,6 +44,29 @@ function UploadProductPage() {
       .catch((err) => console.log(err));
   };
 
+  const uploadImage = async (e) => {
+    const file = e.target.files[0]
+    const base64 = await convertBase64(file)
+    setBaseImage(base64)
+  }
+
+  const convertBase64 = (file) => {
+
+    return new Promise((resolve, reject) => {
+
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = (() => {
+        resolve(fileReader.result)
+      })
+
+      fileReader.onerror = ((error) => {
+        reject(error);
+      })
+    })
+  }
+
   return (
     <div className="form1" style={{ maxWidth: '700px', margin: '100px' }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem', whiteSpace: 'nowrap' }}>
@@ -40,7 +75,15 @@ function UploadProductPage() {
 
       <form onSubmit={handleSubmit}>
         <div>
-          #FileUpload soon
+
+          <input type="file" onChange={(e) => {
+            uploadImage(e);
+          }} />
+        <div className="image-container">
+          {baseImage1.map((item)=>(
+          <img src={item} height="200px" />
+          ))}
+        </div>
         </div>
 
         <div className="input-classic">

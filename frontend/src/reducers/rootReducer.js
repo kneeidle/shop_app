@@ -1,5 +1,6 @@
 const initState = {
   posts: 0,
+  auth: false,
 };
 
 const rootReducer = (state = initState, action) => {
@@ -9,7 +10,11 @@ const rootReducer = (state = initState, action) => {
         ...state,
         posts: action.id,
       };
-
+    case 'AUTH':
+      return {
+        ...state,
+        auth: action.auth,
+      };
     default:
       return state;
   }

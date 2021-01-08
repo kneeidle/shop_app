@@ -26,11 +26,10 @@ nav div h1{
     margin-left: -50px;
     font-family: 'Sansita Swashed', cursive;
     font-size: 40px;
-    color:#f7c530
+    color:#f7c530;
 }
 
 a {
-    margin:0 10px;
     text-decoration: none;
 }
 
@@ -47,7 +46,6 @@ li {
     justify-content: center;
     align-items: stretch;
     padding: 0 0px;
-    background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/debut_light.png");
   }
 
   .nav {
@@ -56,11 +54,13 @@ li {
     top: 0;
     left: 0;
     overflow: hidden;
-    max-width: 100%;
-    background-color: rgb(145, 89, 7);    
-    box-shadow: 0 10px 40px rgba(145, 89, 7, 0.8);
+    max-width: 100%; 
     width: 100vw;
     z-index: 100;
+    box-shadow: 0 0 10px 15px #583e2d;
+    background-image: url("https://cdn.hipwallpaper.com/i/60/13/E7eKsD.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   .nav-item {
@@ -73,6 +73,7 @@ li {
     font-family: 'Sansita Swashed', cursive;
     font-weight: 500;
     position: relative;
+    padding-bottom: 43px;
   }
   .nav-item:before {
     content: "";

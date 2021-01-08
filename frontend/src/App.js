@@ -9,6 +9,9 @@ import UploadProductPage from './components/UploadProductPage/UploadProductPage'
 import Cart from './components/Cart';
 import Login from './components/Login';
 import BottomMenu from './components/BottomMenu';
+import Logout from './components/Logout';
+import PrivateRoute from "./routers/PrivateRoute"
+import PublicRoute from "./routers/PublicRoute"
 
 function App() {
   useEffect(() => {
@@ -23,10 +26,11 @@ function App() {
         <Switch>
           <Route path="/" exact component={Products} />
           <Route path="/contact" component={Contact} />
-          <Route path="/products/:id" component={ItemDetail} />
-          <Route path="/product/upload" component={UploadProductPage} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/login" component={Login} />
+          <PrivateRoute path="/products/:id" component={ItemDetail} />
+          <PrivateRoute path="/product/upload" component={UploadProductPage} />
+          <PrivateRoute path="/cart" component={Cart} />
+          <PublicRoute path="/login" component={Login} />
+          <PrivateRoute path="/logout" component={Logout} />
         </Switch>
       </div>
     </Router>

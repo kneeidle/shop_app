@@ -7,9 +7,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: rgb(255, 215, 39);
+  background-color: whitesmoke;
+  background-position: center;
+  background-repeat: no-repeat;
+ 
 }
-
+/*url("https://swiat-kolorow.com.pl/userdata/public/gfx/c92bfa09c5e9adc02b6354c460c781be.jpg");*/
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

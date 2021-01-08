@@ -1,0 +1,31 @@
+.login-container{
+    margin-top: 100px;
+    display: flex;
+}
+
+.login-row{
+    display:flex;
+    flex-direction: column;
+    margin: 100px;
+}
+
+.login-row h1{
+    font-size: 75px;
+    color:#000000
+}
+
+.login-row input{
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #adadad;
+    padding: 5px;
+}
+
+
+.login-row button{
+    border: 1px solid #adadad;
+    font-family: 'Pacifico', cursive;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

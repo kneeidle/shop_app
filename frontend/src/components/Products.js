@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Products.css';
+import { connect } from 'react-redux'
+import { Authorize } from '../actions/postActions'
 
-function Products() {
+function Products(props) {
   useEffect(() => {
     fetchItems();
+
+    props.Authorize(JSON.parse(localStorage.getItem("Login")))
   }, []);
+
 
   const onLoadMore = () => {
     setVisible(Visible + 4);
@@ -62,16 +67,21 @@ function Products() {
 
   return (
     <div className="main__product" style={{ margin: '100px 0px 0px 0px', display: 'flex', flexDirection: 'column' }}>
-      <div className="second__product">
-        <h1>Products</h1>
-      </div>
+      <div className="main__filters">
 
-      <div className="filters">
-
-        <div>
-          {filteredProducts.length} products found.
+        <div className="filters">
+          <div>
+            Search:
+          <input type="text" value={SearchValue} onChange={updateSearch} />
+            <br></br><span>{filteredProducts.length} products found.</span>
+          </div>
         </div>
-        <div>
+
+        <div className="second__product">
+          <h1>Products</h1>
+        </div>
+
+        <div className="price-filter">
           Filter by price:
           <select onChange={onChangeSelect}>
             <option value="">Select</option>
@@ -79,20 +89,21 @@ function Products() {
             <option value="highest">Highest first</option>
           </select>
         </div>
-        <div>
-          Search:
-          <input type="text" value={SearchValue} onChange={updateSearch} />
-        </div>
+
       </div>
+
+
 
       <div className="products-main">
 
         {filteredProducts.slice(0, Visible).map((item) => (
-          <Link to={`/products/${item._id}`}>
-            <img className="corners" height="300px" width="300px" src="https://assets.myfoodandfamily.com/adaptivemedia/rendition/195370-3000x2000.jpg?id=093000b4880e99e6cd87fa511235a789145c5a0a&ht=650&wd=1004&version=1&clid=pim" />
-            <h1 key={item._id}>{item.title}</h1>
-            <h2>Price: {item.price}$</h2>
-          </Link>
+          <div className="item">
+            <Link to={`/products/${item._id}`}>
+              <img className="" height="300px" width="300px" src={item.image} />
+              <h1 key={item._id}>{item.title}</h1>
+              <h2>Price: {item.price}$</h2>
+            </Link>
+          </div>
         ))}
 
         <br /><br />
@@ -108,4 +119,10 @@ function Products() {
   );
 }
 
-export default Products;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    Authorize: (auth) => { dispatch(Authorize(auth)); },
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Products);
