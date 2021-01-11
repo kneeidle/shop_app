@@ -6,14 +6,14 @@ function UploadProductPage() {
 
   const [TitleValue, setTitleValue] = useState('');
   const [DescriptionValue, setDescriptionValue] = useState('');
-  const [PriceValue, setPriceValue] = useState(0);
+  const [PriceValue, setPriceValue] = useState('');
   const [baseImage, setBaseImage] = useState(null);
   const [baseImage1, setBaseImage1] = useState([]);
 
   useEffect(() => {
-    if(baseImage != null && baseImage1.length < 3){
-    setBaseImage1([...baseImage1, baseImage])
-    console.log(baseImage1)
+    if (baseImage != null && baseImage1.length < 3) {
+      setBaseImage1([...baseImage1, baseImage])
+      console.log(baseImage1)
     }
   }, [baseImage]);
 
@@ -33,12 +33,11 @@ function UploadProductPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const product = {
-      image: baseImage,
+      image: JSON.stringify(baseImage1),
       title: TitleValue,
       desc: DescriptionValue,
       price: PriceValue,
     };
-    console.log(product);
     axios.post('http://localhost:4000/product/upload', product)
       .then((response) => console.log(response.data))
       .catch((err) => console.log(err));
@@ -68,22 +67,33 @@ function UploadProductPage() {
   }
 
   return (
-    <div className="form1" style={{ maxWidth: '700px', margin: '100px' }}>
+    <div className="form1" style={{ maxWidth: '700px', margin: '150px' }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem', whiteSpace: 'nowrap' }}>
         <h2>Upload New Hamburger</h2>
       </div>
 
       <form onSubmit={handleSubmit}>
         <div>
+          <div className="label-file">
+            <label for="upload-photo"><div class="container">
+              <span class="button">choose image</span></div>
+            </label>
+            <input className="input-file" type="file" name="photo" id="upload-photo" onChange={(e) => {
+              uploadImage(e);
+            }} />
+          </div>
 
-          <input type="file" onChange={(e) => {
-            uploadImage(e);
-          }} />
-        <div className="image-container">
-          {baseImage1.map((item)=>(
-          <img src={item} height="200px" />
-          ))}
-        </div>
+          <div className="image-container">
+            {baseImage1.map((item,index) => (
+              <div class="wrapper">
+              <div class="inner">
+                <figure>
+                <img src={item} className={`a${index}`} height="200px" />
+                </figure>
+              </div>
+            </div>
+            ))}
+          </div>
         </div>
 
         <div className="input-classic">
@@ -113,7 +123,7 @@ function UploadProductPage() {
         </div>
 
         <div>
-          <button>Submit</button>
+          <button type="Submit">Submit</button>
         </div>
 
       </form>

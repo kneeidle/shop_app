@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 import { deletePost } from '../actions/postActions';
 
 function ItemDetail(props) {
+
+  const [item, setItem] = useState([]);
+  const [item1, setItem1] = useState([]);
+  const [item2, setItem2] = useState([]);
+
+
   useEffect(() => {
     fetchItem();
     console.log(props.match);
@@ -13,28 +19,28 @@ function ItemDetail(props) {
     props.deletePost(parseInt(localStorage.getItem('cartNumbers')) ? parseInt(localStorage.getItem('cartNumbers')) : 0);
   }, []);
 
-  const [item, setItem] = useState({ title: 'title' });
+  let images = [];
+
+  useEffect(() => {
+    if (item1.length != 0) {
+
+      images = JSON.parse(item1).map((item) => {
+        return {
+          original: `${item}`,
+          thumbnail: `${item}`,
+        }
+      })
+      setItem2(images)
+      console.log(images)
+    }
+  }, [item1]);
 
   const fetchItem = async () => {
     const data = await axios.get(`http://127.0.0.1:4000/product/${props.match.params.id}`);
     console.log(data.data);
     setItem(data.data);
+    setItem1(data.data.image);
   };
-
-  const images = [
-    {
-      original: 'https://embed.widencdn.net/img/beef/1akcqwmdqs/exact/classic-beef-cheeseburgers-horizontal.tif?keep=c&u=7fueml',
-      thumbnail: 'https://embed.widencdn.net/img/beef/1akcqwmdqs/exact/classic-beef-cheeseburgers-horizontal.tif?keep=c&u=7fueml',
-    },
-    {
-      original: 'https://assets.myfoodandfamily.com/adaptivemedia/rendition/195370-3000x2000.jpg?id=093000b4880e99e6cd87fa511235a789145c5a0a&ht=650&wd=1004&version=1&clid=pim',
-      thumbnail: 'https://assets.myfoodandfamily.com/adaptivemedia/rendition/195370-3000x2000.jpg?id=093000b4880e99e6cd87fa511235a789145c5a0a&ht=650&wd=1004&version=1&clid=pim',
-    },
-    {
-      original: 'https://embed.widencdn.net/img/beef/1akcqwmdqs/exact/classic-beef-cheeseburgers-horizontal.tif?keep=c&u=7fueml',
-      thumbnail: 'https://embed.widencdn.net/img/beef/1akcqwmdqs/exact/classic-beef-cheeseburgers-horizontal.tif?keep=c&u=7fueml',
-    },
-  ];
 
   const cartNumbers = (e) => {
     e.preventDefault();
@@ -90,7 +96,7 @@ function ItemDetail(props) {
 
       <div className="main">
         <div className="img">
-          <ImageGallery items={images} />
+          <ImageGallery showPlayButton={false} items={item2} />
         </div>
         <div className="details">
           <div>
@@ -100,11 +106,14 @@ function ItemDetail(props) {
             <span className="fa fa-star" />
             <span className="fa fa-star" />
           </div>
-          <h1>{item.title}</h1>
-          <h2>{item.desc}</h2>
-          <h3>Hamurger size: S M L</h3>
-          <h3>Price: ${item.price}</h3>
-          <input type="submit" onClick={cartNumbers} value="Add to cart" />
+          <div><h1>{item.title}</h1></div>
+          <div><h2>{item.desc}</h2></div>
+          <div className="spacer"></div>
+          <div className="h3-details">
+          <h3>Price: <span className="price-item">${item.price}</span></h3>
+          <div className="h3-details-item"><h3>Hamurger size: <span className="size-item">S</span><span className="size-item">M</span><span className="size-item">L</span></h3></div>
+          </div>
+          <button type="submit" onClick={cartNumbers} >Add to cart</button>
         </div>
       </div>
     </>

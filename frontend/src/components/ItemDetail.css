@@ -21,12 +21,49 @@
     flex-direction: column;
     align-items: flex-start;
     margin-left: 100px;
-    margin-top: 50px;
+    margin-top: 100px;
+    justify-content: space-between;
+}
+
+.details h1{
+    margin-top: 10px;
 }
 
 .details h2{
     text-align: left;
     width: 500px;
+    color: red;
+    margin-top: -20px;
 }
 
-img {max-width:100%;}
+img {
+    max-width:100%;
+}
+
+.details h3{
+    font-family: 'Pacifico', cursive;
+}
+
+.h3-details{
+    display: flex;
+    flex-direction: row;
+}
+
+.h3-details-item{
+    margin-left: 150px;
+}
+
+.spacer{
+    flex: 1;
+}
+
+.size-item{
+    margin: 0px 5px;
+    padding:  0px 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.price-item{
+    color: red;
+}

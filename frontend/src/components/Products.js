@@ -99,7 +99,7 @@ function Products(props) {
         {filteredProducts.slice(0, Visible).map((item) => (
           <div className="item">
             <Link to={`/products/${item._id}`}>
-              <img className="" height="300px" width="300px" src={item.image} />
+              <img className="" height="300px" width="300px" src={JSON.parse(item.image)[0]} />
               <h1 key={item._id}>{item.title}</h1>
               <h2>Price: {item.price}$</h2>
             </Link>

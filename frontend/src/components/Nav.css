@@ -58,7 +58,7 @@ li {
     width: 100vw;
     z-index: 100;
     box-shadow: 0 0 10px 15px #583e2d;
-    background-image: url("https://cdn.hipwallpaper.com/i/60/13/E7eKsD.jpg");
+    background-image: url(../images/image1.jpg);
     background-repeat: no-repeat;
     background-size: cover;
   }

@@ -100,3 +100,10 @@
     width: 1000px;
     border-bottom: 1px solid lightgray;
 }
+
+.spacer{
+    display: flex;
+}
+.spacer1{
+    flex:1;
+}

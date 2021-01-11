@@ -49,14 +49,17 @@ function Login(props) {
           placeholder="username"
           value={registerUsername}
           onChange={(e) => setRegisterUsername(e.target.value)}
+          
         />
         <input
+          type="password"
           placeholder="password"
           value={registerPassword}
           onChange={(e) => setRegisterPassword(e.target.value)}
           onKeyDown={(event) => {if(event.keyCode === 13){
             register()
           }}}
+          
         />
         <button onClick={register}>Submit</button>
       </div>
@@ -70,6 +73,7 @@ function Login(props) {
           
         />
         <input
+          type="password"
           placeholder="password"
           value={loginPassword}
           onChange={(e) => setLoginPassword(e.target.value)}

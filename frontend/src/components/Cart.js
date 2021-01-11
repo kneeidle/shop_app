@@ -81,7 +81,7 @@ function Cart(props) {
         <ion-icon onClick={() => { deleteProduct(item); }} name="close-circle" />
       </div>
       <div className="product-title">
-        <img className="product-img" src="https://www.zajadam.pl/wp-content/uploads/hamburger-przepis.jpg" />
+        <img className="product-img" src={JSON.parse(item.image)[0]} />
         <span>{item.title}</span>
       </div>
       <div className="price">${item.price}</div>
@@ -96,6 +96,8 @@ function Cart(props) {
 
     </div>
   ))) : (null);
+
+  console.log(cartItem)
 
   let sum = 0;
 
@@ -118,14 +120,14 @@ function Cart(props) {
         </div>
         <div className="products">
           {Items}
-          <div className="basketTotalContainer">
+          {Items.length ? (<div className="basketTotalContainer">
             <h4 className="basketTotalTitle">
               Basket Total
             </h4>
             <h4 className="basketTotal">
               ${parseFloat(sum).toFixed(2)}
             </h4>
-          </div>
+          </div>) : (<h4>CART IS EMPTY</h4>)}
         </div>
       </div>
     </>
