@@ -13,8 +13,11 @@ function Cart(props) {
   }, []);
 
   const deleteProduct = (item1) => {
-    cartItems = Object.values(cartItems).filter((item) => item1.title !== item.title);
-
+    cartItems = {
+      ...cartItems,
+      [item1.title]: undefined,
+    };
+    console.log(cartItems)
     setcartItem(cartItems);
     localStorage.setItem('productsInCart', JSON.stringify(cartItems));
 
@@ -75,37 +78,40 @@ function Cart(props) {
   console.log(cartItems);
   console.log(cartItem);
   cartItems = JSON.parse(cartItems);
-  const Items = cartItems ? (Object.values(cartItem).map((item) => (
+  const Items = cartItems ? (Object.values(cartItem).map((item) => ( item != undefined ?(
     <div className="containerBasket">
       <div className="product-icon">
         <ion-icon onClick={() => { deleteProduct(item); }} name="close-circle" />
       </div>
       <div className="product-title">
-        <img className="product-img" src={JSON.parse(item.image)[0]} />
-        <span>{item.title}</span>
+        <img className="product-img" src={ JSON.parse(item.image)[0] } />
+        <span>{ item.title }</span>
       </div>
-      <div className="price">${item.price}</div>
+      <div className="price">${ item.price }</div>
       <div className="quantity">
         <ion-icon onClick={() => { itemValueChangeDown(item.title); }} name="arrow-back-circle-outline" />
-        <span>{item.inCart}</span>
+        <span>{ item.inCart }</span>
         <ion-icon onClick={() => { itemValueChangeUp(item.title); }} name="arrow-forward-circle-outline" />
       </div>
       <div className="total">
-        {parseFloat(item.inCart * item.price).toFixed(2)}
+        { parseFloat(item.inCart * item.price).toFixed(2) }
       </div>
 
-    </div>
-  ))) : (null);
+    </div>) : ("")
+  ))) : ("");
 
-  console.log(cartItem)
+  console.log(Object.values(cartItem))
 
   let sum = 0;
 
   const Items1 = cartItem ? (Object.values(cartItem).map((item) => (
-    sum += (item.inCart * item.price)
+    sum += ( item != undefined ?( item.inCart * item.price) :('') )
   ))) : (null);
-
+  
   console.log(sum);
+
+  let a = Object.values(cartItem).filter((item)=>{ return item != undefined})
+  console.log(a);
   return (
     <>
       <div className="cart__main">
@@ -120,7 +126,7 @@ function Cart(props) {
         </div>
         <div className="products">
           {Items}
-          {Items.length ? (<div className="basketTotalContainer">
+          { a.length ? (<div className="basketTotalContainer">
             <h4 className="basketTotalTitle">
               Basket Total
             </h4>

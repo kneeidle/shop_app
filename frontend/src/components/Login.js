@@ -3,12 +3,17 @@ import Axios from "axios";
 import "./Login.css"
 import { connect } from 'react-redux';
 import { Authorize } from '../actions/postActions';
+import cx from 'classnames'
 
 function Login(props) {
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [changeLogin, setChangeLogin] = useState(false);
+
+  const wrapperClasses = cx('login-row', {'off' : changeLogin === false,})
+  const wrapperClasses1 = cx('login-row1', {'off' : changeLogin === true,})
 
   const register = () => {
     Axios({
@@ -43,8 +48,8 @@ function Login(props) {
 
   return (
     <div className="login-container">
-      <div className="login-row">
-        <h1>Register</h1>
+      <div className={wrapperClasses}>
+        <h1 >Register</h1>
         <input
           placeholder="username"
           value={registerUsername}
@@ -62,10 +67,11 @@ function Login(props) {
           
         />
         <button onClick={register}>Submit</button>
+      <p onClick={()=>{setChangeLogin(false)}}>Already have account, Login</p>
       </div>
 
-      <div className="login-row">
-        <h1>Login</h1>
+      <div className={wrapperClasses1}>
+        <h1 >Login</h1>
         <input
           placeholder="username"
           value={loginUsername}
@@ -83,6 +89,7 @@ function Login(props) {
           
         />
         <button onClick={login}>Submit</button>
+      <p onClick={()=>{setChangeLogin(true)}}>Don't have account, Register</p>
       </div>
     </div>
   );

@@ -3,12 +3,13 @@ import './Nav.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import logo from '../images/logo1.png';
-import { Authorize } from '../actions/postActions'
+import { Authorize, deletePost } from '../actions/postActions'
 
 function Nav(props) {
 
   useEffect(() => {
     props.Authorize(JSON.parse(localStorage.getItem("Login")))
+    props.deletePost(parseInt(localStorage.getItem('cartNumbers')) ? parseInt(localStorage.getItem('cartNumbers')) : 0);
   }, []);
 
   const navStyle = {
@@ -47,7 +48,7 @@ function Nav(props) {
           {props.isAuthenticated ? (<li><Link className="nav-item" active-color="blue" style={navStyle} to="/product/upload">Upload</Link></li>) : (null)}
           {!props.isAuthenticated ? (<li><Link className="nav-item" active-color="blue" style={navStyle} to="/login">Login</Link></li>) : (null)}
           {props.isAuthenticated ? (<li><Link className="nav-item" to="/logout">Logout</Link></li>) : (null)}
-          {props.isAuthenticated ? (<li style={cartStyle}><Link style={navStyle} to="/cart"><ion-icon style={{ zIndex: "-1", fontSize: "40px", color: "#f7c530" }} name="cart-outline" />{posts != 0 ? (<span style={spanStyle}>{posts}</span>) : (null)}</Link></li>) : (null)}
+          {props.isAuthenticated ? (<li style={cartStyle}><Link style={navStyle} to="/cart"><ion-icon style={{ zIndex: "-1", fontSize: "40px", color: "#f7c530" }} name="cart-outline" />{ posts != 0 ? (<span style={spanStyle}>{posts}</span>):(null)}</Link></li>) : (null)}
           <span className="nav-indicator" />
         </ul>
       </div>
@@ -63,6 +64,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
       Authorize: (auth) => { dispatch(Authorize(auth)); },
+      deletePost: (id) => { dispatch(deletePost(id)); },
   }
 }
 
