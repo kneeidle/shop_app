@@ -11,7 +11,7 @@ const session = require('express-session');
 const User = require('./models/User');
 const Auth = require('./models/auth');
 
-const sendGrid = require('@sendGrid/mail');
+//const sendGrid = require('@sendGrid/mail');
 
 const SendGridURI = require('./config/keys').SendGrid;
 
@@ -45,11 +45,16 @@ require("./passportConfig")(passport);
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
-    if (!user) res.send(false);
+    if (!user) {
+      let b = req.user
+      b = {...b._doc, isLogged: false}
+      res.send(`${JSON.stringify(b)}`);}
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        res.send(true);
+        let a = req.user
+        a = {...a._doc, isLogged: true}
+        res.send(`${JSON.stringify(a)}`);
         console.log(req.user);
       });
     }
@@ -104,4 +109,4 @@ app.use(errorController.get404);
 
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => console.log('connected to db'));
 
-app.listen(PORT);
+app.listen(process.env.PORT || PORT);

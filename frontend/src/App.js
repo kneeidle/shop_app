@@ -12,6 +12,7 @@ import BottomMenu from './components/BottomMenu';
 import Logout from './components/Logout';
 import PrivateRoute from "./routers/PrivateRoute"
 import PublicRoute from "./routers/PublicRoute"
+import AdminRoute from "./routers/AdminRoute"
 
 function App() {
   useEffect(() => {
@@ -27,7 +28,7 @@ function App() {
           <Route path="/" exact component={Products} />
           <Route path="/contact" component={Contact} />
           <PrivateRoute path="/products/:id" component={ItemDetail} />
-          <PrivateRoute path="/product/upload" component={UploadProductPage} />
+          <AdminRoute path="/product/upload" component={UploadProductPage} />
           <PrivateRoute path="/cart" component={Cart} />
           <PublicRoute path="/login" component={Login} />
           <PrivateRoute path="/logout" component={Logout} />

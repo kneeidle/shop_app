@@ -1,6 +1,7 @@
 const initState = {
   posts: 0,
   auth: false,
+  admin: false,
 };
 
 const rootReducer = (state = initState, action) => {
@@ -15,6 +16,11 @@ const rootReducer = (state = initState, action) => {
         ...state,
         auth: action.auth,
       };
+      case 'ADMIN':
+        return {
+          ...state,
+          admin: action.admin,
+        };
     default:
       return state;
   }

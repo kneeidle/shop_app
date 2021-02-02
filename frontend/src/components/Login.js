@@ -3,6 +3,7 @@ import Axios from "axios";
 import "./Login.css"
 import { connect } from 'react-redux';
 import { Authorize } from '../actions/postActions';
+import { Admin } from '../actions/postActions';
 import cx from 'classnames'
 
 function Login(props) {
@@ -29,6 +30,8 @@ function Login(props) {
     setRegisterPassword("");
   };
   
+
+
   const login = () => {
     Axios({
       method: "POST",
@@ -39,8 +42,12 @@ function Login(props) {
       withCredentials: true,
       url: "http://localhost:4000/login",
     }).then((res) => {
-      localStorage.setItem("Login", res.data);
+      console.log(res.data.isAdmin)
+      localStorage.setItem("Login", res.data.isLogged);
+      localStorage.setItem("Admin", res.data.isAdmin!= undefined ? true : false);
       props.Authorize(JSON.parse(localStorage.getItem("Login")))
+      props.Admin(JSON.parse(localStorage.getItem("Admin")))
+      console.log(res.data)
     });
     setLoginUsername("");
     setLoginPassword("");
@@ -97,6 +104,7 @@ function Login(props) {
 
 const mapDispatchToProps = (dispatch) => ({
   Authorize: (auth) => { dispatch(Authorize(auth)); },
+  Admin: (admin) => { dispatch(Admin(admin)); },
 });
 
 export default connect(null, mapDispatchToProps)(Login);
