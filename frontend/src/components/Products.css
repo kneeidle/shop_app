@@ -43,7 +43,7 @@ h2{
 .filters{
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: flex-end;
     font-family: 'Pacifico', cursive;
     text-align: start;
 }
