@@ -11,6 +11,7 @@ function Nav(props) {
     props.Authorize(JSON.parse(localStorage.getItem("Login")))
     props.Admin(JSON.parse(localStorage.getItem("Admin")))
     props.deletePost(parseInt(localStorage.getItem('cartNumbers')) ? parseInt(localStorage.getItem('cartNumbers')) : 0);
+    localStorage.setItem('productsInCart', JSON.stringify({}));
   }, []);
 
   const navStyle = {
