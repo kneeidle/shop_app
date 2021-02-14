@@ -4,9 +4,9 @@
     font-size: 75px;
     color:#000000
 }
-
+.products {width: 100%;}
 .products-container{
-    max-width: 1000px;
+    width: 90vw;
     justify-content: space-around;
     margin: 0 auto;
     margin-top: 100px;
@@ -19,7 +19,6 @@
 
 .product-header{
     width: 100%;
-    width: 1000px;
     display: flex;
     justify-content: space-between;
     border-bottom:  4px solid lightgrey;
@@ -97,7 +96,7 @@
 .containerBasket{
     display: flex;
     align-items: center;
-    width: 1000px;
+    width: 100%;
     border-bottom: 1px solid lightgray;
 }
 
@@ -106,4 +105,10 @@
 }
 .spacer1{
     flex:1;
+}
+
+@media only screen and (max-width: 600px) {
+.cart__main h1{
+    margin: 0;
+}
 }

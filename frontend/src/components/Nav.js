@@ -3,14 +3,14 @@ import './Nav.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import logo from '../images/logo1.png';
-import { Admin, Authorize, deletePost } from '../actions/postActions'
+import { Admin, Authorize, productCounter } from '../actions/postActions'
 
 function Nav(props) {
 
   useEffect(() => {
     props.Authorize(JSON.parse(localStorage.getItem("Login")))
     props.Admin(JSON.parse(localStorage.getItem("Admin")))
-    props.deletePost(parseInt(localStorage.getItem('cartNumbers')) ? parseInt(localStorage.getItem('cartNumbers')) : 0);
+    props.productCounter(parseInt(localStorage.getItem('cartNumbers')) ? parseInt(localStorage.getItem('cartNumbers')) : 0);
     localStorage.setItem('productsInCart', JSON.stringify({}));
   }, []);
 
@@ -34,7 +34,7 @@ function Nav(props) {
   const cartStyle = {
     position: "relative"
   }
-  const { posts } = props;
+  const { product } = props;
 
   return (
     <nav className="nav">
@@ -50,7 +50,7 @@ function Nav(props) {
           {props.isAdmin ? (<li><Link className="nav-item" active-color="blue" style={navStyle} to="/product/upload">Upload</Link></li>) : (null)}
           {!props.isAuthenticated ? (<li><Link className="nav-item" active-color="blue" style={navStyle} to="/login">Login</Link></li>) : (null)}
           {props.isAuthenticated ? (<li><Link className="nav-item" to="/logout">Logout</Link></li>) : (null)}
-          {props.isAuthenticated ? (<li style={cartStyle}><Link style={navStyle} to="/cart"><ion-icon style={{ zIndex: "-1", fontSize: "40px", color: "#f7c530" }} name="cart-outline" />{ posts != 0 ? (<span style={spanStyle}>{posts}</span>):(null)}</Link></li>) : (null)}
+          {props.isAuthenticated ? (<li style={cartStyle}><Link style={navStyle} to="/cart"><ion-icon style={{ zIndex: "-1", fontSize: "40px", color: "#f7c530" }} name="cart-outline" />{ product != 0 ? (<span style={spanStyle}>{product}</span>):(null)}</Link></li>) : (null)}
           <span className="nav-indicator" />
         </ul>
       </div>
@@ -59,7 +59,7 @@ function Nav(props) {
 }
 
 const mapStateToProps = (state) => ({
-  posts: state.posts,
+  product: state.product,
   isAuthenticated: state.auth,
   isAdmin: state.admin,
 });
@@ -68,7 +68,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
       Authorize: (auth) => { dispatch(Authorize(auth)); },
       Admin: (admin) => { dispatch(Admin(admin)); },
-      deletePost: (id) => { dispatch(deletePost(id)); },
+      productCounter: (id) => { dispatch(productCounter(id)); },
   }
 }
 

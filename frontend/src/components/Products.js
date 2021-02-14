@@ -69,26 +69,29 @@ function Products(props) {
     <div className="main__product" style={{ margin: '100px 0px 0px 0px', display: 'flex', flexDirection: 'column' }}>
       <div className="main__filters">
 
-        <div className="filters">
-          <div>
-            Search:
-          <input type="text" value={SearchValue} onChange={updateSearch} />
-            <br></br><span>{filteredProducts.length} products found.</span>
-          </div>
-        </div>
-
         <div className="second__product">
           <h1>Products</h1>
         </div>
+        <div className="container__product__filters">
+          <div className="filters">
+            <div>
+              Search:
+            <input type="text" value={SearchValue} onChange={updateSearch} />
+              <br></br><span>{filteredProducts.length} products found.</span>
+            </div>
+          </div>
 
-        <div className="price-filter">
-          Filter by price:
-          <select onChange={onChangeSelect}>
-            <option value="">Select</option>
-            <option value="lowest">Lowest first</option>
-            <option value="highest">Highest first</option>
-          </select>
+
+          <div className="price-filter">
+            Filter by price:
+            <select onChange={onChangeSelect}>
+              <option value="">Select</option>
+              <option value="lowest">Lowest first</option>
+              <option value="highest">Highest first</option>
+            </select>
+          </div>
         </div>
+        
 
       </div>
 

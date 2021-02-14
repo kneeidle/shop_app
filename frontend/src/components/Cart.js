@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Cart.css';
 import { connect } from 'react-redux';
-import { deletePost } from '../actions/postActions';
+import { productCounter } from '../actions/postActions';
 
 function Cart(props) {
   const [cartItem, setcartItem] = useState({});
@@ -17,7 +17,6 @@ function Cart(props) {
       ...cartItems,
       [item1.title]: undefined,
     };
-    console.log(cartItems)
     setcartItem(cartItems);
     localStorage.setItem('productsInCart', JSON.stringify(cartItems));
 
@@ -26,7 +25,7 @@ function Cart(props) {
     productNumbers = parseInt(productNumbers);
 
     localStorage.setItem('cartNumbers', productNumbers - item1.inCart);
-    props.deletePost(productNumbers - item1.inCart);
+    props.productCounter(productNumbers - item1.inCart);
 
     let cartCost = localStorage.getItem('totalCost');
 
@@ -46,9 +45,8 @@ function Cart(props) {
         productNumbers = parseInt(productNumbers);
 
         localStorage.setItem('cartNumbers', productNumbers - 1);
-        props.deletePost(productNumbers - 1);
+        props.productCounter(productNumbers - 1);
       }
-      console.log(item1);
       setcartItem(cartItems);
       localStorage.setItem('productsInCart', JSON.stringify(cartItems));
     }
@@ -60,7 +58,7 @@ function Cart(props) {
     if (cartItems[item1] !== undefined) {
       cartItems[item1].inCart += 1;
 
-      console.log(item1);
+
       setcartItem(cartItems);
       localStorage.setItem('productsInCart', JSON.stringify(cartItems));
     }
@@ -70,13 +68,12 @@ function Cart(props) {
     productNumbers = parseInt(productNumbers);
 
     localStorage.setItem('cartNumbers', productNumbers + 1);
-    props.deletePost(productNumbers + 1);
+    props.productCounter(productNumbers + 1);
   };
 
   const cartCost = localStorage.getItem('totalCost');
   let cartItems = localStorage.getItem('productsInCart');
-  console.log(cartItems);
-  console.log(cartItem);
+
   cartItems = JSON.parse(cartItems);
   const Items = cartItems ? (Object.values(cartItem).map((item) => ( item != undefined ?(
     <div className="containerBasket">
@@ -100,7 +97,6 @@ function Cart(props) {
     </div>) : ("")
   ))) : ("");
 
-  console.log(Object.values(cartItem))
 
   let sum = 0;
 
@@ -108,10 +104,9 @@ function Cart(props) {
     sum += ( item != undefined ?( item.inCart * item.price) :('') )
   ))) : (null);
   
-  console.log(sum);
 
   let a = Object.values(cartItem).filter((item)=>{ return item != undefined})
-  console.log(a);
+
   return (
     <>
       <div className="cart__main">
@@ -141,7 +136,7 @@ function Cart(props) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  deletePost: (id) => { dispatch(deletePost(id)); },
+  productCounter: (id) => { dispatch(productCounter(id)); },
 });
 
 export default connect(null, mapDispatchToProps)(Cart);

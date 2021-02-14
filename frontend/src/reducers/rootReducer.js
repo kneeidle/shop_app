@@ -1,15 +1,15 @@
 const initState = {
-  posts: 0,
+  product: 0,
   auth: false,
   admin: false,
 };
 
 const rootReducer = (state = initState, action) => {
   switch (action.type) {
-    case 'DELETE_POST':
+    case 'PRODUCT_COUNTER':
       return {
         ...state,
-        posts: action.id,
+        product: action.id,
       };
     case 'AUTH':
       return {

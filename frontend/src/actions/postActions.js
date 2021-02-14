@@ -1,5 +1,5 @@
-export const deletePost = (id) => ({
-  type: 'DELETE_POST',
+export const productCounter = (id) => ({
+  type: 'PRODUCT_COUNTER',
   id,
 });
 

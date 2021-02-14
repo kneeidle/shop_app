@@ -3,7 +3,7 @@ import axios from 'axios';
 import './ItemDetail.css';
 import ImageGallery from 'react-image-gallery';
 import { connect } from 'react-redux';
-import { deletePost } from '../actions/postActions';
+import { productCounter } from '../actions/postActions';
 
 function ItemDetail(props) {
 
@@ -16,7 +16,7 @@ function ItemDetail(props) {
     fetchItem();
     console.log(props.match);
     console.log(props);
-    props.deletePost(parseInt(localStorage.getItem('cartNumbers')) ? parseInt(localStorage.getItem('cartNumbers')) : 0);
+    props.productCounter(parseInt(localStorage.getItem('cartNumbers')) ? parseInt(localStorage.getItem('cartNumbers')) : 0);
   }, []);
 
   let images = [];
@@ -50,10 +50,10 @@ function ItemDetail(props) {
 
     if (productNumbers) {
       localStorage.setItem('cartNumbers', productNumbers + 1);
-      props.deletePost(productNumbers + 1);
+      props.productCounter(productNumbers + 1);
     } else {
       localStorage.setItem('cartNumbers', 1);
-      props.deletePost(1);
+      props.productCounter(1);
     }
     //----------------------------------------------------------
     let cartItems = localStorage.getItem('productsInCart');
@@ -121,7 +121,7 @@ function ItemDetail(props) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  deletePost: (id) => { dispatch(deletePost(id)); },
+  productCounter: (id) => { dispatch(productCounter(id)); },
 });
 
 export default connect(null, mapDispatchToProps)(ItemDetail);
