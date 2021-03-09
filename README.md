@@ -1,6 +1,6 @@
 WEBSITE: https://nostalgic-pike-fc1fae.netlify.app
 
-Admin: Stefan
+User: Stefan
 Hasło: Stefan
 
 
