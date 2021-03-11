@@ -3,9 +3,7 @@ It can takes around 10 seconds to bootstrap api after 30 min of inactivity. Plea
 
 WEBSITE: https://nostalgic-pike-fc1fae.netlify.app
 
-User: Stefan
-Hasło: Stefan
-
+Please contact me to get credentials at jotthyr@gmail.com
 
 Main features:
 
